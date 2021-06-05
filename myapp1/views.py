@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 # Create your views here.
 
@@ -36,5 +37,18 @@ def user_register(request):
     return render(request,'register.html')
 
 def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username = username,password = password)
+        if user is not None:
+            login(request,user)
+            return redirect('/')
+        else:
+            messages.warning(request,'Incorrect username or password , please try again')
+            return redirect('_login')
     return render(request,'login.html')
-    # return HttpResponse("hello login page")
+
+def user_logout(request):
+    logout(request)
+    return redirect('/')
