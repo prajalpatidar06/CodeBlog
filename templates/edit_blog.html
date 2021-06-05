@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock title %}
+
+{% block body %}
+
+<form method="post" >
+    {%csrf_token%}
+    {{edit_blog.as_p}}
+    <input type="submit" name="submit">
+</form>
+
+{% endblock body %}
