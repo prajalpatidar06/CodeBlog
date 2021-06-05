@@ -62,13 +62,20 @@ def post_blog(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         category = request.POST.get('category')
+        category2 = request.POST.get('category_new')
         url = request.POST.get('url')
         description = request.POST.get('description')
-        blog = Blog(title=title, category=category, url=url, description=description , user_id = request.user)
-        blog.save()
+        if category  != 'none':
+            blog = Blog(title=title, category=category, url=url, description=description , user_id = request.user)
+            blog.save()
+        elif category2 != '':
+            blog = Blog(title=title, category=category2, url=url, description=description , user_id = request.user)
+            blog.save()
+        
         messages.success(request,'Blog content successfully posted')
-        return redirect('post_blog')  
-    return render(request,'post_blog.html')
+        return redirect('post_blog')
+    blog = Blog.objects.all()  
+    return render(request,'post_blog.html',{'blogs':blog})
 
 def blog_detail(request,id):
     blog = Blog.objects.get(id =id)
@@ -83,6 +90,7 @@ def delete(request,id):
 
 def edit(request,id):
     blog = Blog.objects.get(id=id)
+    post = Blog.objects.all()
     editblog = Edit_Blog(instance = blog)
     if request.method =="POST":
         form = Edit_Blog(request.POST,instance=blog)
@@ -90,5 +98,11 @@ def edit(request,id):
             form.save()
             messages.success(request,'Blog has been Edited')
             return redirect('/')
-    return render(request,'edit_blog.html',{'edit_blog' :editblog})
+    return render(request,'edit_blog.html',{'edit_blog' :editblog , 'posts':post})
 
+def search(request):
+    query = request.GET.get('search')
+    print(query)
+    blog= Blog.objects.all()
+    # messages.success(request,query)
+    return render(request,'search.html',{'blogs':blog , 'query' :query})

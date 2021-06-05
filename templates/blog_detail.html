@@ -20,15 +20,15 @@
 </div>
 {% endif %}
 <div class="container my-3">
-    <div class="col-md-6">
         <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
-            <h3 class="mb-0">{{blog.title}}</h3>
+            <h4 class="mb-0">posted by -> {{blog.user_id.username}}</h4>
             <div class="mb-1 text-muted">{{blog.date}}</div>
-            <div class="mb-1 text-danger"> posted by-> {{blog.user_id.username}}</div>
+            <h3 class="my-4 text-primary"> {{blog.title}}</h3>
+            <a class="btn btn-success text-light" href="{{blog.url}}" target="_blank">View Question</a>
+            <h3 class="my-3">Problem Notes : </h3>
             <p class="card-text mb-auto">{{blog.description}}</p>
           </div>
         </div>
-    </div>
 </div>
 {% endblock body %}
