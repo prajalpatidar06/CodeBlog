@@ -9,7 +9,6 @@ from . forms import Edit_Blog
 
 def index(request):
     blog = Blog.objects.all()
-    print(blog)
     context = {'blogs': blog}
     return render(request,'home.html',context)
 
@@ -102,7 +101,5 @@ def edit(request,id):
 
 def search(request):
     query = request.GET.get('search')
-    print(query)
     blog= Blog.objects.all()
-    # messages.success(request,query)
     return render(request,'search.html',{'blogs':blog , 'query' :query})
