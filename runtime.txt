@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 python-3.9.5  
-=======
-python-3.9.5  
->>>>>>> 26fe366 (make it better)
+
